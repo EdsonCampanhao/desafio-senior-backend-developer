@@ -1,0 +1,78 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Caches
+*.log
+*.pot
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environment
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+.venv/
+.venv.bak/
+
+# VSCode
+.vscode/
+
+# MyPy
+.mypy_cache/
+
+# Pytest
+.pytest_cache/
+htmlcov/
+
+# Docker
+*.pid
+*.seed
+*.bak
+docker-compose.override.yml
+**/docker-volume/
+**/tmp/
+**/.docker/
+**/.dockerignore
+
+# MacOS
+.DS_Store
+
+# Logs
+*.log
+
+# Coverage
+.coverage
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# FastAPI/Starlette specific
+instance/

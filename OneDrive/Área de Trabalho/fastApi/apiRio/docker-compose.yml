@@ -1,0 +1,62 @@
+services:
+  api:
+    env_file:
+      - .env
+    build: .
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+      
+    
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "db", "-u", "root", "-p${DB_PASSWORD}"]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 5s
+
+  db:
+    image: mysql:8.0
+    restart: always
+    env_file:
+      - .env
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${DB_PASSWORD}"]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 5s
+
+  test:
+    build: .
+    volumes:
+      - ./app:/app
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      
+    env_file:
+      - .env
+    command: pytest
+    depends_on:
+      - db
+      - api
+    
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "db", "-u", "root", "-p${DB_PASSWORD}"]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 5s
